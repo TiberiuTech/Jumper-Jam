@@ -1,0 +1,94 @@
+[gd_scene load_steps=8 format=3 uid="uid://frox17erg40w"]
+
+[ext_resource type="Script" path="res://scripts/screens.gd" id="1_f5t66"]
+[ext_resource type="Texture2D" uid="uid://c50h1qp0j4fho" path="res://assets/textures/ui/gear.png" id="2_dyw5q"]
+[ext_resource type="PackedScene" uid="uid://tkc60lkkveiu" path="res://scenes/title_screen.tscn" id="2_x5cwe"]
+[ext_resource type="PackedScene" uid="uid://8p0fxwcxsy8q" path="res://scenes/pause_screen.tscn" id="3_d17j1"]
+[ext_resource type="PackedScene" uid="uid://cdgwogjksnaxg" path="res://scenes/game_over_screen.tscn" id="4_qjlq1"]
+[ext_resource type="PackedScene" uid="uid://ejmomo1pcmyc" path="res://scenes/shop_screen.tscn" id="5_wc8ip"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_casod"]
+
+[node name="Screens" type="CanvasLayer"]
+process_mode = 3
+layer = 101
+script = ExtResource("1_f5t66")
+
+[node name="TitleScreen" parent="." instance=ExtResource("2_x5cwe")]
+
+[node name="PauseScreen" parent="." instance=ExtResource("3_d17j1")]
+
+[node name="GameOverScreen" parent="." instance=ExtResource("4_qjlq1")]
+
+[node name="ShopScreen" parent="." instance=ExtResource("5_wc8ip")]
+
+[node name="Debug" type="Control" parent="."]
+z_index = 4096
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ConsoleLog" type="Control" parent="Debug" groups=["debug_console"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlackBG" type="ColorRect" parent="Debug/ConsoleLog"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.666667)
+
+[node name="BuildNoLabel" type="Label" parent="Debug/ConsoleLog"]
+layout_mode = 1
+offset_left = 9.0
+offset_top = 7.0
+offset_right = 517.0
+offset_bottom = 33.0
+text = "Build 0.2.0"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Debug/ConsoleLog"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 43.0
+offset_right = -22.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Debug/ConsoleLog/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LogLabel" type="Label" parent="Debug/ConsoleLog/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_casod")
+autowrap_mode = 3
+
+[node name="ToggleConsole" type="TextureButton" parent="Debug"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -51.0
+offset_right = 51.0
+grow_vertical = 0
+texture_normal = ExtResource("2_dyw5q")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="Debug/ToggleConsole" to="." method="_on_toggle_console_pressed"]
